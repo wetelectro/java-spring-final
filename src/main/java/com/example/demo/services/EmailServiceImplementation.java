@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Usuario;
+import com.example.demo.models.OrdenDeCompra;
+import com.example.demo.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,16 +27,29 @@ public class EmailServiceImplementation implements EmailService{
         javaMailSender.send(simpleMailMessage);
     }
 
-    public void sendRegistrationEmail(Usuario usuario) {
+    public void sendRegistrationEmail(User user) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 
-        simpleMailMessage.setTo(usuario.getEmail());
+        simpleMailMessage.setTo(user.getEmail());
         simpleMailMessage.setSubject("Creacion de Cuenta");
         simpleMailMessage.setText(
-                "Alta de usuario " + usuario.getCompleteName() + ", le dejamos sus credenciales:\n" +
-                "email: " + usuario.getEmail() + "\n" +
-                "password: " + usuario.getPassword() + "\n" +
+                "Alta de user " + user.getCompleteName() + ", le dejamos sus credenciales:\n" +
+                "email: " + user.getEmail() + "\n" +
+                "password: " + user.getPassword() + "\n" +
                 "por favor, no comparta esta informacion."
+        );
+
+        javaMailSender.send(simpleMailMessage);
+    }
+
+    public void sendOrderEmail(OrdenDeCompra ordenDeCompra) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+
+        simpleMailMessage.setTo(ordenDeCompra.getEmail());
+        simpleMailMessage.setSubject("Nueva Orden de compra");
+        simpleMailMessage.setText(
+                "Orden de compra :\n" +
+                ordenDeCompra.toString()
         );
 
         javaMailSender.send(simpleMailMessage);

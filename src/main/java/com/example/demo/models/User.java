@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document
-public class Usuario {
+public class User {
 
     @Id
     private String id;
@@ -16,10 +16,6 @@ public class Usuario {
     @Indexed(unique = true)
     private String email;
     private String password;
-
-    @Override
-    public String toString() {
-        return "User :: [ email: " + this.getEmail() + " ; password: " + this.getPassword() + " ]";
-    }
-
+    private String token;
+    private String address;
 }
